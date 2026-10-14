@@ -1,5 +1,6 @@
 // @ts-nocheck
 // Legacy global browser script migrated to TypeScript.
+const DEFAULT_SITE_LOGO = new URL("/images/gannons-logo.png", window.location.href).href;
 let typedKeys = '';
 const secretCode = 'epstein';
 let secretUnlocked = false;
@@ -251,7 +252,7 @@ async function downloadCurrentGame() {
         else {
             throw new Error('No source URL available for active tab');
         }
-        if (content && !content.includes('noahs-watermark')) {
+        if (content && !content.includes('gannons-watermark')) {
             content = injectWatermark(content, title);
         }
         const blob = new Blob([content], { type: 'text/html' });
@@ -291,14 +292,14 @@ function injectWatermark(htmlContent, gameTitle) {
     htmlContent = htmlContent.replace(/<div[^>]*id="vanta-bg"[^>]*>.*?<\/div>/gis, '');
     htmlContent = htmlContent.replace(/<div[^>]*class="loading-content"[^>]*>.*?<\/div>/gis, '');
     const watermarkHTML = `
-		                        <!-- Downloaded From Noah's Tutoring Hub -->
+		                        <!-- Downloaded From Gannon's Tutoring Hub -->
 		                        <style>
 		                            @keyframes subtleGlow {
 		                                0%, 100% { box-shadow: 0 0 10px rgba(194, 124, 21, 0.4) !important; }
 		                                50% { box-shadow: 0 0 20px rgba(194, 124, 21, 0.6) !important; }
 		                            }
 		                        <\/style>
-		                        <div id="noahs-watermark"
+		                        <div id="gannons-watermark"
 		                             onclick="window.open('https://unpkg.com/noahs-tutoring-hub@1.0.1/index.html', '_blank');"
 		                             style="
 		                                all: initial !important;
@@ -325,16 +326,16 @@ function injectWatermark(htmlContent, gameTitle) {
 		                                user-select: none !important;
 		                            ">
 		                            <img src="https://raw.githubusercontent.com/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/master/cuh.png"
-		                                 alt="Noah's Tutoring Hub"
+		                                 alt="Gannon's Tutoring Hub"
 		                                 style="width: 16px !important; height: 16px !important; border-radius: 3px !important; pointer-events: none !important;">
-		                            <span style="pointer-events: none !important;">Downloaded from Noah's Tutoring Hub<\/span>
+		                            <span style="pointer-events: none !important;">Downloaded from Gannon's Tutoring Hub<\/span>
 		                        <\/div>
 		                        <script>
 		                            (function() {
 		                                var gameTitle = "${gameTitle}";
 
 		                                function protectWatermark() {
-		                                    const watermark = document.getElementById('noahs-watermark');
+		                                    const watermark = document.getElementById('gannons-watermark');
 		                                    if (!watermark && document.body) {
 		                                        location.reload();
 		                                    }
@@ -343,7 +344,7 @@ function injectWatermark(htmlContent, gameTitle) {
 		                                setInterval(protectWatermark, 1000);
 		                                
 		                                console.log('%c🎮 Game: "' + gameTitle + '"', 'color: #c27c15; font-weight: bold;');
-		                                console.log('%c📚 Downloaded from Noah\'s Tutoring Hub', 'color: #e69500;');
+		                                console.log('%c📚 Downloaded from Gannon\'s Tutoring Hub', 'color: #e69500;');
 		                            })();
 		                        <\/script>
 		                    `;
@@ -359,7 +360,7 @@ function injectWatermark(htmlContent, gameTitle) {
     return htmlContent;
 }
 const style = document.createElement('style');
-style.textContent = '@keyframes subtleGlow { 0%, 100% { box-shadow: 0 0 10px rgba(194, 124, 21, 0.4) !important; } 50% { box-shadow: 0 0 20px rgba(194, 124, 21, 0.6) !important; } } #noahs-watermark { animation: subtleGlow 3s ease-in-out infinite !important; } #noahs-watermark:hover { animation: none !important; box-shadow: 0 0 25px rgba(194, 124, 21, 0.8) !important; }';
+style.textContent = '@keyframes subtleGlow { 0%, 100% { box-shadow: 0 0 10px rgba(194, 124, 21, 0.4) !important; } 50% { box-shadow: 0 0 20px rgba(194, 124, 21, 0.6) !important; } } #gannons-watermark { animation: subtleGlow 3s ease-in-out infinite !important; } #gannons-watermark:hover { animation: none !important; box-shadow: 0 0 25px rgba(194, 124, 21, 0.8) !important; }';
 document.head.appendChild(style);
 function generateGameCards() {
     const allContainer = document.getElementById('allLessonsGrid');
@@ -1704,7 +1705,7 @@ function setFavicon(iconUrl) {
 function updateTitle() {
     if (!document.hidden) {
         currentSubject = getRandomSubject();
-        document.title = `Noahs Tutoring | ${currentSubject}`;
+        document.title = `Gannons Tutoring | ${currentSubject}`;
     }
     else {
         document.title = "Home";
@@ -1723,14 +1724,14 @@ document.addEventListener('visibilitychange', function () {
     }
     else {
         currentSubject = getRandomSubject();
-        document.title = `Noahs Tutoring | ${currentSubject}`;
+        document.title = `Gannons Tutoring | ${currentSubject}`;
         setFavicon('https://raw.githubusercontent.com/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/master/cuh.png');
     }
 });
 setInterval(function () {
     if (!document.hidden) {
         currentSubject = getRandomSubject();
-        document.title = `Noahs Tutoring | ${currentSubject}`;
+        document.title = `Gannons Tutoring | ${currentSubject}`;
     }
 }, 30000);
 window.addEventListener('load', function () {
@@ -1950,7 +1951,7 @@ function initializeSettings() {
         }
         else {
             currentSubject = getRandomSubject();
-            document.title = `Noahs Tutoring | ${currentSubject}`;
+            document.title = `Gannons Tutoring | ${currentSubject}`;
             setFavicon('https://raw.githubusercontent.com/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/master/cuh.png');
         }
     });
@@ -2039,7 +2040,7 @@ function selectPresetTheme(themeName) {
 }
 function updateLogoForCurrentTheme() {
     const currentTheme = localStorage.getItem('selectedTheme') || 'default';
-    const defaultLogo = "https://cdn.jsdelivr.net/gh/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/images/logo.png";
+    const defaultLogo = DEFAULT_SITE_LOGO;
     document.querySelectorAll('.logo, .home-logo').forEach(logoEl => {
         logoEl.src = defaultLogo;
         logoEl.dataset.baseSrc = defaultLogo;
@@ -2248,7 +2249,7 @@ function tintLogoElementExact(logoEl, r, g, b) {
     const isDefaultColor = r === 194 && g === 124 && b === 21;
     if (isDefaultTheme || isDefaultColor) {
         const baseSrc = logoEl.dataset.baseSrc ||
-            "https://cdn.jsdelivr.net/gh/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/images/logo.png";
+            DEFAULT_SITE_LOGO;
         if (logoEl.src !== baseSrc) {
             logoEl.src = baseSrc;
         }
@@ -2320,7 +2321,7 @@ function tintLogoElementExact(logoEl, r, g, b) {
 function syncLogoThemeTone() {
     const currentTheme = localStorage.getItem('selectedTheme') || 'default';
     if (currentTheme === 'default') {
-        const defaultLogo = "https://cdn.jsdelivr.net/gh/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/images/logo.png";
+        const defaultLogo = DEFAULT_SITE_LOGO;
         document.querySelectorAll('.logo, .home-logo').forEach(logoEl => {
             if (logoEl.src !== defaultLogo) {
                 logoEl.src = defaultLogo;
@@ -2338,7 +2339,7 @@ function updateMatrixTheme() {
     refreshActiveBackground();
 }
 function revertLogo() {
-    const defaultLogo = "https://cdn.jsdelivr.net/gh/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/images/logo.png";
+    const defaultLogo = DEFAULT_SITE_LOGO;
     const logoPreview = document.getElementById('logoPreview');
     const previewImg = logoPreview.querySelector('img');
     previewImg.src = defaultLogo;
@@ -2560,8 +2561,8 @@ function pauseMediaInFrame(frame, reset = false) {
 function getGameFreezeHarnessScript() {
     return `<script>
         (function() {
-          if (window.__noahFreezeHarnessInstalled) return;
-          window.__noahFreezeHarnessInstalled = true;
+          if (window.__gannonFreezeHarnessInstalled) return;
+          window.__gannonFreezeHarnessInstalled = true;
 
           var frozen = false;
           var rafCallbacks = new Map();
@@ -2720,7 +2721,7 @@ function getGameFreezeHarnessScript() {
 
           function setFrozen(nextFrozen) {
             frozen = !!nextFrozen;
-            window.__NOAH_FROZEN__ = frozen;
+            window.__GANNON_FROZEN__ = frozen;
 
             if (frozen) {
               document.documentElement.style.animationPlayState = 'paused';
@@ -2779,11 +2780,11 @@ function getGameFreezeHarnessScript() {
           }
 
           window.addEventListener('message', function(event) {
-            if (!event || !event.data || event.data.type !== 'NOAH_TAB_STATE') return;
+            if (!event || !event.data || event.data.type !== 'GANNON_TAB_STATE') return;
             setFrozen(!!event.data.frozen);
           });
 
-          window.__NOAH_SET_FROZEN__ = setFrozen;
+          window.__GANNON_SET_FROZEN__ = setFrozen;
         })();
       <\/script>`;
 }
@@ -2792,7 +2793,7 @@ function postTabFreezeMessage(tab, frozen) {
         return;
     try {
         if (tab.frame.contentWindow) {
-            tab.frame.contentWindow.postMessage({ type: 'NOAH_TAB_STATE', frozen }, '*');
+            tab.frame.contentWindow.postMessage({ type: 'GANNON_TAB_STATE', frozen }, '*');
         }
     }
     catch (error) {
@@ -2936,10 +2937,10 @@ function createGameFrameWithHarness(gamePath, gameTitle) {
     ${getGameFreezeHarnessScript()}
 </head>
 <body>
-    <iframe id="noah-inner-game-frame" src="${gamePath}" frameborder="0" allowfullscreen></iframe>
+    <iframe id="gannon-inner-game-frame" src="${gamePath}" frameborder="0" allowfullscreen></iframe>
     <script>
         (function() {
-            var innerFrame = document.getElementById('noah-inner-game-frame');
+            var innerFrame = document.getElementById('gannon-inner-game-frame');
             var frozen = false;
             
             function applyFrozenState() {
@@ -2948,7 +2949,7 @@ function createGameFrameWithHarness(gamePath, gameTitle) {
                 innerFrame.style.filter = frozen ? 'saturate(0.7) brightness(0.9)' : '';
                 try {
                     if (innerFrame.contentWindow) {
-                        innerFrame.contentWindow.postMessage({ type: 'NOAH_TAB_STATE', frozen: frozen }, '*');
+                        innerFrame.contentWindow.postMessage({ type: 'GANNON_TAB_STATE', frozen: frozen }, '*');
                     }
                 } catch (error) {}
             }
@@ -2958,7 +2959,7 @@ function createGameFrameWithHarness(gamePath, gameTitle) {
             });
 
             window.addEventListener('message', function(event) {
-                if (!event || !event.data || event.data.type !== 'NOAH_TAB_STATE') return;
+                if (!event || !event.data || event.data.type !== 'GANNON_TAB_STATE') return;
                 frozen = !!event.data.frozen;
                 applyFrozenState();
             });
@@ -3048,7 +3049,7 @@ function getAllSettings() {
     return {
         version: '2.0',
         exportDate: new Date().toISOString(),
-        siteName: "Noah's Tutoring Hub",
+        siteName: "Gannon's Tutoring Hub",
         exportType: 'site-data',
         localStorageData: localData,
         sessionStorageData: sessionData,
@@ -3070,7 +3071,7 @@ function getAllSettings() {
     };
 }
 function isAccountLockedForDataExport() {
-    return typeof window.__noahsAccountLocked === 'function' && window.__noahsAccountLocked();
+    return typeof window.__gannonsAccountLocked === 'function' && window.__gannonsAccountLocked();
 }
 function exportSettings() {
     if (isAccountLockedForDataExport()) {
@@ -3080,7 +3081,7 @@ function exportSettings() {
     const settings = getAllSettings();
     const settingsJson = JSON.stringify(settings, null, 2);
     const timestamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
-    const filename = `noahstutoring-site-data-${timestamp}.json`;
+    const filename = `gannonstutoring-site-data-${timestamp}.json`;
     const blob = new Blob([settingsJson], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -3266,7 +3267,7 @@ function applyImportedSettings(importedSettings) {
         setSiteLogos(settings.customLogo);
     }
     else {
-        const defaultLogo = "https://cdn.jsdelivr.net/gh/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/images/logo.png";
+        const defaultLogo = DEFAULT_SITE_LOGO;
         const logoPreview = document.getElementById('logoPreview');
         setSiteLogos(defaultLogo);
         if (logoPreview) {
@@ -3961,7 +3962,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "My name is anderdingus",
         "Yo speed my reboot card expires in...",
         "Yo yo yo its hump day, what ima need you to do is tag three big di-",
-        "Wait what if noah is really black tho...?",
+        "Wait what if gannon is really black tho...?",
         "Hey Alexa how do you say purple in english?",
         "Put the yager black ice in my ass",
         "If this site doesnt work out im making an only fans",
@@ -3973,7 +3974,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "If you're seeing this message its for seahanna heheheheh",
         "shush baka!~ your so mean to me thug-kun.. this is peak!",
         "AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH",
-        "What if we kissed at the noahs tutoring loading screen? Haha jk... unless?",
+        "What if we kissed at the gannons tutoring loading screen? Haha jk... unless?",
         "My lawyer has advised me not to finish this senten—",
         "Im changing my bloodline with this site frl",
         "I can see your ip (thats a joke please dont sue me)",
